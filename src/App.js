@@ -1,25 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
+import ItemSearchFilter from './page/ItemSearchFilter-text';
+import ImagePreviewPage from './page/ImagePreviewPage';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useMemo } from 'react';
+import { Provider } from 'react-redux';
+import configurationStore from './store/configurationStore';
 
 function App() {
+  const initValues = useMemo(() => ({ searchKeyword: '' }), []);
+  const store = configurationStore();
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <Router>
+          {/* <ItemSearchFilter initValues={initValues} /> */}
+          <ImagePreviewPage />
+        </Router>
+      </div>
+    </Provider>
   );
 }
-
 export default App;
