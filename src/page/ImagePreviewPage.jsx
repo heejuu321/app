@@ -83,7 +83,7 @@ function ImagePreviewPage() {
         >
           <ul className="metismenu left-sidenav-menu">
             <li className="nav-item">
-              <a href="../pages/pages-imagePreview.html">
+              <a href="/">
                 <i className="ti-layers-alt"></i>
                 <span>이미지 프리뷰</span>
                 <span className="menu-arrow">
@@ -92,7 +92,7 @@ function ImagePreviewPage() {
               </a>
             </li>
             <li className="nav-item">
-              <a href="../pages/pages-imageSearch.html">
+              <a href="/search">
                 <i className="ti-layers-alt"></i>
                 <span>이미지 검색</span>
                 <span className="menu-arrow">
