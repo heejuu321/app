@@ -1,26 +1,36 @@
 import {SET_PREVIEW_LIST} from '../actions/previewActions';
 
-const initState = {
-    ids:[],
-    entities:{},
-}
+// const initState = {
+//     ids:[],
+//     entities:{},
+// }
 
-export default (state = initState, action) => {
-    const {type, payload} = action;
+// export default (state = initState, action) => {
+//     const {type, payload} = action;
 
-    switch(type) {
-        case SET_PREVIEW_LIST : {
-            const ids = payload.map(entity => entity['id']);
-            const entities = payload.reduce((finalEntities, entity) => ({
-                ...finalEntities,
-                [entity['id']]: entity,                
-            }),{});
-            return{...state, ids, entities}
-        }
-        default:
-            return state;
-    }
-};
+//     switch(type) {
+//         case SET_PREVIEW_LIST : {
+//             const ids = payload.map(entity => entity['id']);
+//             const entities = payload.reduce((finalEntities, entity) => ({
+//                 ...finalEntities,
+//                 [entity['id']]: entity,                
+//             }),{});
+//             return{...state, ids, entities}
+//         }
+//         default:
+//             return state;
+//     }
+// };
+
+   const initState = [];
+   export default (state = initState, action) => {
+     switch(action.type) {
+       case SET_PREVIEW_LIST:
+         return action.payload; // payload가 배열!
+       default:
+         return state;
+     }
+   };
 
 // 주로 API로 받아온 프리뷰 데이터를
 // 효율적으로 조회/관리하기 위해

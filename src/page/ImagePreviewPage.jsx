@@ -1,22 +1,42 @@
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
 import Api from '../Api';
 import SearchPreviewResult from '../component/SearchPreviewResult';
 import { setPreviewList } from '../actions/previewActions';
 
-function ImagePreviewPage({previewResult}) {
+function ImagePreviewPage() {
     const dispatch = useDispatch(); // 함수 내부 최상단에 위치
+    const previewResult = useSelector(state => state.previewItem);
 
-  const previewSearch = useCallback(() => {
-    Api.get('/preview/search')
-      .then(response => {
-        // response.data가 배열이라고 가정
-        dispatch(setPreviewList(response.data));
-      })
-      .catch(error => {
-        console.error('API 호출 에러:', error);
-      });
-  }, [dispatch]);
+    const [sidebarOpen, setSidebarOpen] = useState(true);
+
+    const handleSidebarToggle = () => {
+      setSidebarOpen(prev => !prev);
+    };
+
+//  const previewSearch = useCallback((e) => {
+//      e.preventDefault();//새로고침 하지 않겠다
+//     Api.get('/preview/search')
+//       .then(response => {
+//         dispatch(setPreviewList(response.data));
+//       })
+//       .catch(error => {
+//         console.error('API 호출 에러:', error);
+//       });
+//   }, [dispatch]); 
+
+   useEffect(() => {
+     console.log('previewResult changed:', previewResult);
+   }, [previewResult]);
+
+    const previewSearch = useCallback((e) => {
+      e.preventDefault();//새로고침 하지 않겠다
+      dispatch(setPreviewList([{name : '이름!'}]));
+  }, [dispatch, previewResult]);
+
+      const reset = useCallback((e)=>{
+          dispatch(setPreviewList([]));
+      },[]);
   
   return (
     <>
@@ -36,7 +56,7 @@ function ImagePreviewPage({previewResult}) {
         <nav className="navbar-custom">
           <ul className="list-unstyled topbar-nav mb-0">
             <li>
-              <button className="nav-link button-menu-mobile waves-effect waves-light">
+              <button className="nav-link button-menu-mobile waves-effect waves-light"  onClick={handleSidebarToggle}>
                 <i className="ti-menu nav-icon"></i>
               </button>
             </li>
@@ -45,9 +65,22 @@ function ImagePreviewPage({previewResult}) {
       </div>
 
       {/* Main Layout: Left Sidenav + Page Content side by side */}
-<div className="main-wrapper" style={{ display: 'flex', width: '100vw', minWidth: 0, minHeight: '100vh' }}>
+      <div
+        className="main-wrapper"
+        style={{
+          display: 'flex',
+          width: '100vw',
+          minWidth: 0,
+          minHeight: '100vh',
+        }}
+      >
         {/* Left Sidenav */}
-        <div className="left-sidenav">
+        <div
+          className="left-sidenav"
+          style={{
+            display: sidebarOpen ? 'block' : 'none', // 토글에 따라 보이기/숨기기
+          }}
+        >
           <ul className="metismenu left-sidenav-menu">
             <li className="nav-item">
               <a href="../pages/pages-imagePreview.html">
@@ -107,13 +140,17 @@ function ImagePreviewPage({previewResult}) {
                         <h1 className="display-4">안녕하세요</h1>
                         <p className="lead">의류 및 신발 카테고리 에 속하는 3000여개의 이미지 입니다.</p>
                         <button type="submit" className="btn btn-gradient-primary" onClick={previewSearch}>검색</button>
-                        <button type="button" className="btn btn-gradient-danger">지우기</button>
+                        <div style={{ width: '16px', display: 'inline-block' }}></div>
+                        <button type="button" className="btn btn-gradient-danger" onClick={reset}>지우기</button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <SearchPreviewResult previewResult = {previewResult}/>
+              {/* <SearchPreviewResult previewResult = {previewResult}/> */}
+{Array.isArray(previewResult) && previewResult.map((item, idx) => (
+  <SearchPreviewResult key={item.id || idx} previewResult={item} />
+))}
             </div>
           </div>
         </div>
