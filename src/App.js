@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 import { Provider } from 'react-redux';
 import configurationStore from './store/configurationStore';
 import ImageSearchPage from './page/ImageSearchPage';
+import TextSearchPage from './page/TextSearchPage';
 
 function App() {
   const initValues = useMemo(() => ({ searchKeyword: '' }), []);
@@ -17,8 +18,9 @@ function App() {
       <div className="App">
 <Router>
   <Routes>
-    <Route path="/" element={<ImagePreviewPage />} />
-    <Route path="/search" element={<ImageSearchPage />} />
+    {/* <Route path="/" element={<ImagePreviewPage />} /> */}
+        <Route path="/" element={<ImageSearchPage />} />
+        <Route path="/text" element={<TextSearchPage />} />
   </Routes>
 </Router>
       </div>

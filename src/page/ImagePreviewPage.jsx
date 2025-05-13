@@ -3,10 +3,22 @@ import { useDispatch,useSelector } from 'react-redux';
 import Api from '../Api';
 import SearchPreviewResult from '../component/SearchPreviewResult';
 import { setPreviewList } from '../actions/previewActions';
+import CategoryFilter from '../component/CategoryFilter';
 
 function ImagePreviewPage() {
     const dispatch = useDispatch(); // 함수 내부 최상단에 위치
     const previewResult = useSelector(state => state.previewItem);
+    const [sortType, setSortType] = useState(null); //정렬기준 state
+
+    //필터 정렬 함수
+    const getSortedResults = () => {
+      if(!Array.isArray(previewResult)) return [];
+      if(sortType === 'name-asc') {
+        return [...previewResult].sort((a, b) => a.name.localeCompare(b.name, 'eng'));
+      }
+      // 다른 정렬 기준 추가 가능
+      return previewResult;
+    }
 
     const [sidebarOpen, setSidebarOpen] = useState(true);
 
@@ -31,7 +43,7 @@ function ImagePreviewPage() {
 
     const previewSearch = useCallback((e) => {
       e.preventDefault();//새로고침 하지 않겠다
-      dispatch(setPreviewList([{name : '이름!'}]));
+      dispatch(setPreviewList([{name : 't-Shirts'},{name : 'pants'}]));
   }, [dispatch, previewResult]);
 
       const reset = useCallback((e)=>{
@@ -75,12 +87,7 @@ function ImagePreviewPage() {
         }}
       >
         {/* Left Sidenav */}
-        <div
-          className="left-sidenav"
-          style={{
-            display: sidebarOpen ? 'block' : 'none', // 토글에 따라 보이기/숨기기
-          }}
-        >
+        <div className="left-sidenav" style={{display: sidebarOpen ? 'block' : 'none'}} >
           <ul className="metismenu left-sidenav-menu">
             <li className="nav-item">
               <a href="/">
@@ -137,7 +144,7 @@ function ImagePreviewPage() {
                   <div className="card">
                     <div className="card-body">
                       <div className="jumbotron mb-0 bg-light">
-                        <h1 className="display-4">안녕하세요</h1>
+                        <h1 className="display-4">Remain Search</h1>
                         <p className="lead">의류 및 신발 카테고리 에 속하는 3000여개의 이미지 입니다.</p>
                         <button type="submit" className="btn btn-gradient-primary" onClick={previewSearch}>검색</button>
                         <div style={{ width: '16px', display: 'inline-block' }}></div>
@@ -147,10 +154,20 @@ function ImagePreviewPage() {
                   </div>
                 </div>
               </div>
+              <div className="card">
+                <div className="card-body">
+                  <div className="row">
+                    <CategoryFilter onSortChange={setSortType} />
+                  </div>
+                </div>
+              </div>
               {/* <SearchPreviewResult previewResult = {previewResult}/> */}
-{Array.isArray(previewResult) && previewResult.map((item, idx) => (
-  <SearchPreviewResult key={item.id || idx} previewResult={item} />
-))}
+      <div class="row">  
+      {getSortedResults().map((item, idx) => (
+        
+        <SearchPreviewResult key={item.id || idx} previewResult={item} />
+      ))}
+</div>
             </div>
           </div>
         </div>

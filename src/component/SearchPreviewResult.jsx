@@ -4,24 +4,31 @@ import PropTypes from 'prop-types';
 function SearchPreviewResult({previewResult={name:'이름'}}) {
     return(
         <>
-            <div className="row">
-                <div className="col-lg-3">
-                  <div className="card e-co-product">
-                    <a href="">
-                      <img src="/assets/images/products/img-4.png" alt="" className="img-fluid" />
-                    </a>
+               <div className="col-lg-3">
+                    <div className="card e-co-product">
+                        <div className="card-body product-info">
+    <a
+      href=""
+      className="product-title"
+      style={{
+        display: 'block',
+        minHeight: '40px', // 한 줄 또는 두 줄 높이로 고정 (원하는 값으로 조정)
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'normal', // 여러 줄 허용
+        wordBreak: 'break-all'
+      }}
+    >    </a>
+                      <img src="{previewResult.payload.filepath}" alt="" className="img-fluid" />
                     <div className="card-body product-info">
-                        <a href="" className="product-title">{previewResult.name}</a>
-                      <button className="btn btn-dark btn-sm waves-effect waves-light wishlist" data-toggle="tooltip" data-placement="top" title="Wishlist">
-                        <i className="mdi mdi-heart"></i>
-                      </button>
-                      <button className="btn btn-dark btn-sm waves-effect waves-light quickview" data-toggle="tooltip" data-placement="top" title="Quickview">
-                        <i className="mdi mdi-magnify"></i>
-                      </button>
+                        <a href="" className="product-title">{previewResult.payload.name}</a>
+                    </div>
+                    <div className="card-body product-info">
+                        <a href="" className="product-title">{previewResult.score}</a>
                     </div>
                   </div>
                 </div>
-              </div>
+                </div>
         </>
     )
 }
