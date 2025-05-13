@@ -5,7 +5,7 @@ import SearchPreviewResult from '../component/SearchPreviewResult';
 import { setPreviewList } from '../actions/previewActions';
 import CategoryFilter from '../component/CategoryFilter';
 import axios from 'axios';
-import FileUploadBox from '../component/FileUploadBox';
+import TextSearchResultChart from '../component/TextSearchResultChart';
 
 
 function TextSearchPage() {
@@ -15,6 +15,7 @@ function TextSearchPage() {
   const [sortType, setSortType] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]); // 결과 배열
 
 useEffect(() => {
   console.log('sortType:', sortType);
@@ -76,14 +77,29 @@ const getSortedResults = () => {
       alert('검색어를 입력하세요!');
       return;
     }
+
+    const params = new URLSearchParams();
+    params.append('text', query);
+    params.append('collection_name', 'commerce');
+    params.append('category', '');
+    params.append('limit', '8');
+    params.append('metadata', '1');
+
     try {
-      const response = await axios.post('http://3.38.36.43:8082/search/text', {
-        text: query
-      });
-      // response.data 활용
-      console.log('검색 성공:', response.data);
+      const response = await axios.post(
+        'http://3.38.36.43:8082/search/text',
+        params,
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+          }
+        }
+      );
+      setResults(response.data.target || []);
     } catch (error) {
-      console.error('검색 실패:', error);
+      setResults([]);
+      alert('검색 실패');
     }
   };
 
@@ -180,7 +196,7 @@ const getSortedResults = () => {
                 <div className="card-body" style={{ textAlign: 'left' }}>
                   <h4 className="mt-0 header-title">검색어를 입력하세요.</h4>
                   <p className="text-muted mb-3">
-                    검색어 예시: 빨간 신발 / 노란 옷 / 캐릭터 디자인 / 운동할 때 편한 신발 / 격식있는
+                    검색어 예시: 빨간 신발 / 노란 옷 / 캐릭터 디자인 / 운동할 때 편한 신발 / 격식있는??????????
                   </p>
                   <div className="row">
                     <div className="col-lg-6">
@@ -200,76 +216,47 @@ const getSortedResults = () => {
               </div>
             </div>
           </div>
+                        <div className="card">
+                <div className="card-body">
+                  <div className="row">
+                    <CategoryFilter onSortChange={setSortType} />
+                  </div>
+                </div>
+              </div>
           <div className="row">
-            <div className="col-lg-3">
-              <div className="card e-co-product">
-                <a href="">
-                  <img src="../assets/images/products/img-1.png" alt="" className="img-fluid" />
-                </a>
-                <div className="card-body product-info">
-                  <a href="" className="product-title">Unique Shoe (White)</a>
-                  <button className="btn btn-dark btn-sm waves-effect waves-light wishlist" data-toggle="tooltip" data-placement="top" title="Wishlist">
-                    <i className="mdi mdi-heart"></i>
-                  </button>
-                  <button className="btn btn-dark btn-sm waves-effect waves-light quickview" data-toggle="tooltip" data-placement="top" title="Quickview">
-                    <i className="mdi mdi-magnify"></i>
-                  </button>
-                </div>
-              </div>
+            <div className="col-12">
+        <TextSearchResultChart data={results[0]} />
+        <div className="row">
+    {results[0]?.map((item, index) => (
+            <SearchPreviewResult previewResult={item} />
+    ))}
+    </div>
             </div>
-            <div className="col-lg-3">
-              <div className="card e-co-product">
-                <a href="">
-                  <img src="../assets/images/products/img-3.png" alt="" className="img-fluid" />
-                </a>
-                <div className="card-body product-info">
-                  <a href="" className="product-title">Headphone F2019</a>
-                  <button className="btn btn-dark btn-sm waves-effect waves-light wishlist" data-toggle="tooltip" data-placement="top" title="Wishlist">
-                    <i className="mdi mdi-heart"></i>
-                  </button>
-                  <button className="btn btn-dark btn-sm waves-effect waves-light quickview" data-toggle="tooltip" data-placement="top" title="Quickview">
-                    <i className="mdi mdi-magnify"></i>
-                  </button>
-                </div>
-              </div>
+          </div>
+          <div className="row">
+            <div className="col-12">
+        <TextSearchResultChart data={results[1]} />
+        <div className="row">
+    {results[1]?.map((item, index) => (
+            <SearchPreviewResult previewResult={item} />
+    ))}
+    </div>
             </div>
-            <div className="col-lg-3">
-              <div className="card e-co-product">
-                <a href="">
-                  <img src="../assets/images/products/img-4.png" alt="" className="img-fluid" />
-                </a>
-                <div className="card-body product-info">
-                  <a href="" className="product-title">Lavie Purse CN120</a>
-                  <button className="btn btn-dark btn-sm waves-effect waves-light wishlist" data-toggle="tooltip" data-placement="top" title="Wishlist">
-                    <i className="mdi mdi-heart"></i>
-                  </button>
-                  <button className="btn btn-dark btn-sm waves-effect waves-light quickview" data-toggle="tooltip" data-placement="top" title="Quickview">
-                    <i className="mdi mdi-magnify"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-3">
-              <div className="card e-co-product">
-                <a href="">
-                  <img src="../assets/images/products/img-5.png" alt="" className="img-fluid" />
-                </a>
-                <div className="card-body product-info">
-                  <a href="" className="product-title">Nike Shoes Leather Pasted 20</a>
-                  <button className="btn btn-dark btn-sm waves-effect waves-light wishlist" data-toggle="tooltip" data-placement="top" title="Wishlist">
-                    <i className="mdi mdi-heart"></i>
-                  </button>
-                  <button className="btn btn-dark btn-sm waves-effect waves-light quickview" data-toggle="tooltip" data-placement="top" title="Quickview">
-                    <i className="mdi mdi-magnify"></i>
-                  </button>
-                </div>
-              </div>
+          </div>
+          <div className="row">
+            <div className="col-12">
+        <TextSearchResultChart data={results[2]} />
+        <div className="row">
+    {results[2]?.map((item, index) => (
+            <SearchPreviewResult previewResult={item} />
+    ))}
+    </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-      </div>
+      </div> 
     </>
   );
 }
