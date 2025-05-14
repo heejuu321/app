@@ -72,11 +72,7 @@ const handleReset = () => {
         <div className="topbar-left">
           <a href="../projects/projects-index.html" className="logo">
             <span>
-              <img src="../assets/images/logo-sm.png" alt="logo-small" className="logo-sm" />
-            </span>
-            <span>
-              <img src="../assets/images/logo.png" alt="logo-large" className="logo-lg logo-light" />
-              <img src="../assets/images/logo-dark.png" alt="logo-large" className="logo-lg" />
+              <img src="../assets/images/remain-search-logo.png" alt="logo-small" className="logo-sm" style={{ width: '64px', height: '64px' }}/>
             </span>
           </a>
         </div>
@@ -163,7 +159,7 @@ const handleReset = () => {
                       <form onSubmit={handleSearch}>
                         <div className="d-flex align-items-center">
                           <input
-                            type="text" className="form-control" placeholder="ex. 빨간 신발 / 노란 옷 / 캐릭터 디자인 / 운동할 때 편한 신발" style={{ maxWidth: '400px' }} value={query} onChange={e => setQuery(e.target.value)}
+                            type="text" className="form-control" placeholder="ex.빨간 신발/노란 옷/캐릭터 디자인/운동할 때 편한 신발" style={{ maxWidth: '400px' }} value={query} onChange={e => setQuery(e.target.value)}
                           />
                           <button className="btn btn-primary ml-2" type="submit">검색</button>
                           <button className="btn btn-danger ml-2" type="button" onClick={handleReset}>초기화</button>
@@ -176,7 +172,15 @@ const handleReset = () => {
               </div>
             </div>
           </div>
-
+    <div className="row">
+      <div className="col-12" >
+        <div className="card" >
+          <div className="card-body" style={{ textAlign: 'center', background: '#BFDAF7', padding: '10px 0' }}>
+            <h4 className="mt-0 header-title">Image Search</h4>
+          </div>
+        </div>
+      </div>
+    </div>
           <div className="row">
             <div className="col-12">
         <TextSearchResultChart data={results[0]} />
@@ -187,6 +191,15 @@ const handleReset = () => {
     </div>
             </div>
           </div>
+              <div className="row">
+      <div className="col-12" >
+        <div className="card" >
+          <div className="card-body" style={{ textAlign: 'center', background: '#BFDAF7', padding: '10px 0' }}>
+            <h4 className="mt-0 header-title">Sentence Search</h4>
+          </div>
+        </div>
+      </div>
+    </div>
           <div className="row">
             <div className="col-12">
         <TextSearchResultChart data={results[1]} />
@@ -197,6 +210,15 @@ const handleReset = () => {
     </div>
             </div>
           </div>
+                        <div className="row">
+      <div className="col-12" >
+        <div className="card" >
+          <div className="card-body" style={{ textAlign: 'center', background: '#BFDAF7', padding: '10px 0' }}>
+            <h4 className="mt-0 header-title">Keyword Search</h4>
+          </div>
+        </div>
+      </div>
+    </div>
           <div className="row">
             <div className="col-12">
         <TextSearchResultChart data={results[2]} />

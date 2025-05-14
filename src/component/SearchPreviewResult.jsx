@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 function SearchPreviewResult({previewResult={name:'이름'}}) {
+
+
+
+const trimmed = previewResult.payload.filepath.replace('/home/manny/E-commerce-Product-Images/data/', '');
+const imgPath = `/assets/images/E-commerce Product Images/data/${trimmed}`;
+
+
     return(
         <>
                <div className="col-lg-3">
@@ -19,7 +26,10 @@ function SearchPreviewResult({previewResult={name:'이름'}}) {
         wordBreak: 'break-all'
       }}
     >    </a>
-                      <img src="{previewResult.payload.filepath}" alt="" className="img-fluid" />
+                      <img   
+  src={`/assets/images/E-commerce Product Images/data/${previewResult.payload.filepath.replace('/home/manny/E-commerce-Product-Images/data/', '')}`}
+                       alt="" className="img-fluid" />
+                      {/* <img   src="/assets/images/E-commerce Product Images/data/Apparel/Boys/Images/images_with_product_ids/10054.jpg" alt="" className="img-fluid" /> */}
                     <div className="card-body product-info">
                         <a href="" className="product-title">{previewResult.payload.name}</a>
                     </div>

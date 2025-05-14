@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-const StaticsChart = () => {
+const StaticsChart = ({chartName}) => {
   // Basic Bar Chart 옵션
   const basicBarOptions = {
     chart: {
