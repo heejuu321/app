@@ -12,51 +12,12 @@ function TextSearchPage() {
   const dispatch = useDispatch();
   const previewResult = useSelector(state => state.previewItem);
 
-  const [sortType, setSortType] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]); // 결과 배열
-
-useEffect(() => {
-  console.log('sortType:', sortType);
-}, [sortType]);
-
-
-
-const getSortedResults = () => {
-  if (!Array.isArray(previewResult)) return [];
-  if (sortType === 'name-asc') {
-    return [...previewResult].sort((a, b) => {
-      const nameA = a.payload?.name || '';
-      const nameB = b.payload?.name || '';
-      return nameA.localeCompare(nameB, 'en');
-    });
-  }  //score
-    if (sortType === 'score-asc') {
-        console.log('score-asc');
-    return [...previewResult].sort((a, b) => {
-    const scoreA = a.score ?? a.payload?.score ?? 0;
-    const scoreB = b.score ?? b.payload?.score ?? 0;
-    return scoreB - scoreA;
-    });
-  }
-    if (sortType === 'score-desc') {
-    return [...previewResult].sort((a, b) => {
-    const scoreA = a.score ?? a.payload?.score ?? 0;
-    const scoreB = b.score ?? b.payload?.score ?? 0;
-    return scoreA - scoreB;
-    });
-  }
-      if (sortType === '*') {
-  // Fisher-Yates 셔플 알고리즘 (권장)
-  const shuffled = [...previewResult];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-  }
-  return previewResult;
+const handleReset = () => {
+  setResults([]);   // 결과 데이터 초기화
+  setQuery('');     // 검색어 input 초기화
 };
 
 //   const getSortedResults = () => {
@@ -169,7 +130,7 @@ const getSortedResults = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a href="../pages/pages-statiacs.html">
+              <a href="/chart">
                 <i className="ti-bar-chart"></i>
                 <span>검색 통계</span>
                 <span className="menu-arrow">
@@ -186,7 +147,6 @@ const getSortedResults = () => {
           <div className="row">
             <div className="col-sm-12">
               <div className="page-title-box">
-                <h4 className="page-title">New Project</h4>
               </div>
             </div>
           </div>
@@ -195,18 +155,18 @@ const getSortedResults = () => {
               <div className="card">
                 <div className="card-body" style={{ textAlign: 'left' }}>
                   <h4 className="mt-0 header-title">검색어를 입력하세요.</h4>
-                  <p className="text-muted mb-3">
-                    검색어 예시: 빨간 신발 / 노란 옷 / 캐릭터 디자인 / 운동할 때 편한 신발 / 격식있는??????????
-                  </p>
+                  {/* <p className="text-muted mb-3">
+                    검색어 예시: 빨간 신발 / 노란 옷 / 캐릭터 디자인 / 운동할 때 편한 신발 / 격식있는
+                  </p> */}
                   <div className="row">
                     <div className="col-lg-6">
                       <form onSubmit={handleSearch}>
                         <div className="d-flex align-items-center">
                           <input
-                            type="text" className="form-control" placeholder="검색어를 입력하세요" style={{ maxWidth: '400px' }} value={query} onChange={e => setQuery(e.target.value)}
+                            type="text" className="form-control" placeholder="ex. 빨간 신발 / 노란 옷 / 캐릭터 디자인 / 운동할 때 편한 신발" style={{ maxWidth: '400px' }} value={query} onChange={e => setQuery(e.target.value)}
                           />
                           <button className="btn btn-primary ml-2" type="submit">검색</button>
-                          <button className="btn btn-danger ml-2" type="button">초기화</button>
+                          <button className="btn btn-danger ml-2" type="button" onClick={handleReset}>초기화</button>
                         </div>
                       </form>
                     </div>
@@ -216,13 +176,7 @@ const getSortedResults = () => {
               </div>
             </div>
           </div>
-                        <div className="card">
-                <div className="card-body">
-                  <div className="row">
-                    <CategoryFilter onSortChange={setSortType} />
-                  </div>
-                </div>
-              </div>
+
           <div className="row">
             <div className="col-12">
         <TextSearchResultChart data={results[0]} />

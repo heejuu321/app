@@ -183,7 +183,7 @@ const handleSearch = async (e) => {
               </a>
             </li>
             <li className="nav-item">
-              <a href="../pages/pages-statiacs.html">
+              <a href="/chart">
                 <i className="ti-bar-chart"></i>
                 <span>검색 통계</span>
                 <span className="menu-arrow">
@@ -201,11 +201,6 @@ const handleSearch = async (e) => {
                 <div className="col-sm-12">
                   <div className="page-title-box">
                     <div className="float-right">
-                      <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="javascript:void(0);">Crovex</a></li>
-                        <li className="breadcrumb-item"><a href="javascript:void(0);">UI Kit</a></li>
-                        <li className="breadcrumb-item active">File Uploads</li>
-                      </ol>
                     </div>
                   </div>
                 </div>
