@@ -140,6 +140,13 @@ const handleReset = () => {
       <div className="page-wrapper">
       <div className="page-content">
         <div className="container-fluid">
+
+
+{/* 추가한 부분 */}
+<div style={{ display: 'flex', width: '100%' }}>
+  <div style={{ flex: 1 }}>
+{/* 추가한 부분 */}
+
           <div className="row">
             <div className="col-sm-12">
               <div className="page-title-box">
@@ -182,7 +189,7 @@ const handleReset = () => {
       </div>
     </div>
           <div className="row">
-            <div className="col-12">
+            <div className="col-12" >
         <TextSearchResultChart data={results[0]} />
         <div className="row">
     {results[0]?.map((item, index) => (
@@ -230,7 +237,20 @@ const handleReset = () => {
             </div>
           </div>
         </div>
+
+          <div style={{ width: '120px', minWidth: '40px', background: 'transparent' }}>
+    {/* 오른쪽 공백용 빈 박스 */}
+  </div>
+
+  
       </div>
+
+{/* 추가 */}
+</div>
+</div>
+{/* 추가 */}
+
+
     </div>
       </div> 
     </>
