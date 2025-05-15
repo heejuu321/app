@@ -52,11 +52,7 @@ useEffect(() => {
         <div className="topbar-left">
           <a href="../projects/projects-index.html" className="logo">
             <span>
-              <img src="../assets/images/logo-sm.png" alt="logo-small" className="logo-sm" />
-            </span>
-            <span>
-              <img src="../assets/images/logo.png" alt="logo-large" className="logo-lg logo-light" />
-              <img src="../assets/images/logo-dark.png" alt="logo-large" className="logo-lg" />
+              <img src="../assets/images/remain-search-logo.png" alt="logo-small" className="logo-sm" style={{ width: '64px', height: '64px' }}/>
             </span>
           </a>
         </div>
@@ -127,12 +123,19 @@ useEffect(() => {
               <div className="row">
                 <div className="col-sm-12">
                   <div className="page-title-box">
-                    <div className="chart-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', width: '100%' }}>
-                      {/* <div style={{ width: '100%' }}><StaticsChart chartName={"scoreData"} labels={scoreData.labels} values={scoreData.values}/></div>
+<div style={{ display: 'flex', width: '100%' }}>
+  <div style={{ flex: 1 }}>
+    <div className="chart-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', width: '100%' }}>
+  
+                      <div style={{ width: '100%' }}><StaticsChart chartName={"scoreData"} labels={scoreData.labels} values={scoreData.values}/></div>
                       <div style={{ width: '100%' }}><StaticsChart chartName={"countData"} labels={countData.labels} values={countData.values}/></div>
                       <div style={{ width: '100%' }}><StaticsChart chartName={"monthData"} labels={monthData.labels} values={monthData.values}/></div>
-                      <div style={{ width: '100%' }}><StaticsChart chartName={"timeData"} labels={timeData.labels} values={timeData.values}/></div> */}
-                      <div style={{ width: '100%' }}><StaticsChart chartName={"scoreData"}/></div>
+                      <div style={{ width: '100%' }}><StaticsChart chartName={"timeData"} labels={timeData.labels} values={timeData.values}/></div>                      
+                    </div>
+                    </div>
+                      <div style={{ width: '120px', minWidth: '40px', background: 'transparent' }}>
+    {/* 오른쪽 공백용 빈 박스 */}
+  </div>
                     </div>
                   </div>
                 </div>

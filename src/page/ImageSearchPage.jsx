@@ -125,11 +125,7 @@ const handleSearch = async (e) => {
         <div className="topbar-left">
           <a href="../projects/projects-index.html" className="logo">
             <span>
-              <img src="../assets/images/logo-sm.png" alt="logo-small" className="logo-sm" />
-            </span>
-            <span>
-              <img src="../assets/images/logo.png" alt="logo-large" className="logo-lg logo-light" />
-              <img src="../assets/images/logo-dark.png" alt="logo-large" className="logo-lg" />
+              <img src="../assets/images/remain-search-logo.png" alt="logo-small" className="logo-sm" style={{ width: '64px', height: '64px' }}/>
             </span>
           </a>
         </div>
